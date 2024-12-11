@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meeting_keeper/buttomColumn.dart';
 import 'package:meeting_keeper/login.dart';
+import 'package:meeting_keeper/mainPropose.dart';
+import 'package:meeting_keeper/workFileBar.dart';
 
 void main() {
   runApp(const MainApp());
@@ -34,7 +36,9 @@ class homePage extends StatelessWidget {
           children: [
             Buttomcolumnfirst(),
             Buttomcolumnsecond(),
-            ElevatedButton(onPressed: (){}, child: SizedBox(height:200,width:200, child: Center(child: Container(clipBehavior: Clip.hardEdge,decoration:BoxDecoration( borderRadius: BorderRadius.all(Radius.circular(10))), child: Text("发起动议")))))
+            ElevatedButton(onPressed: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>mainProposePage()));
+            }, child: SizedBox(height:200,width:200, child: Center(child: Container(clipBehavior: Clip.hardEdge,decoration:BoxDecoration( borderRadius: BorderRadius.all(Radius.circular(10))), child: Text("发起动议")))))
           ],
         )
       ),

@@ -1,8 +1,12 @@
-import 'dart:async';  
+import 'dart:async';
+import 'dart:convert';  
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
+import 'package:meeting_keeper/WorkFiles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class addpage extends StatefulWidget{
   const addpage({super.key});
@@ -51,7 +55,7 @@ class addpagestate extends State<addpage>{
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
                   clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
+                    decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(20)
                   ),
@@ -79,4 +83,27 @@ class addpagestate extends State<addpage>{
     throw UnimplementedError();
   }
 
+}
+
+class workFile{
+  String nation;
+  String title;
+  String content;
+  workFile({
+    required this.nation,
+    required this.title,
+    required this.content
+  });
+}
+List<workFile> WorkFiles=[];
+Future getWorkFile()async{
+  WorkFiles=[];
+  final response = await http
+      .get(Uri.parse('http://118.89.124.13:2333/getallworkfile'));
+  final a=jsonDecode(Utf8Decoder().convert(response.bodyBytes),);
+  for(var item in a){
+    print(item[2]);
+    WorkFiles.add(workFile(nation: item[1].toString(), title: item[0].toString(), content: item[2].toString()));
+  }
+  FilesStream.add("");
 }
